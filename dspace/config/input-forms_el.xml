@@ -1,0 +1,978 @@
+<?xml version="1.0"?>
+<!DOCTYPE input-forms SYSTEM "input-forms.dtd">
+
+
+<input-forms>
+
+ <!-- The form-map maps collection handles to forms. DSpace does not       -->
+ <!-- require a collection name to be unique, not even within a community. -->
+ <!-- DSpace does however ensure that each collection's handle is unique.  -->
+ <!-- Form-map provides the means to associate a unique collection name    -->
+ <!-- with a form. The form-map also provides the special handle "default" -->
+ <!-- (which is never a collection), here mapped to "traditional". Any     -->
+ <!-- collection which does not appear in this map will be associated with -->
+ <!-- the mapping for handle "default".                                    -->
+
+ <form-map>
+   <name-map collection-handle="default" form-name="traditional" />
+ </form-map>
+
+
+ <!-- The form-definitions map lays out the detailed definition of all the -->
+ <!-- submission forms. Each separate form set has a unique name as an     -->
+ <!-- attribute. This name matches one of the names in the form-map. One   -->
+ <!-- named form set has the name "traditional"; as this name suggests,    -->
+ <!-- it is the old style and is also the default, which gets used when    -->
+ <!-- the specified collection has no correspondingly-named form set.      -->
+ <!--                                                                      -->
+ <!-- Each form set contains an ordered set of pages; each page defines    -->
+ <!-- one submission metadata entry screen. Each page has an ordered list  -->
+ <!-- of field definitions, Each field definition corresponds to one       -->
+ <!-- metadata entry (a so-called row), which has a DC element name, a    -->
+ <!-- displayed label, a text string prompt which is called a hint, and    -->
+ <!-- an input-type. Each field also may hold optional elements: DC        -->
+ <!-- qualifier name, a repeatable flag, and a text string whose presence  -->
+ <!-- serves as a 'this field is required' flag.                           -->
+
+ <form-definitions>
+
+   <form name="traditional">
+     <page number="1">
+     
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>type</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Είδος τεκμηρίου</label>
+			<input-type value-pairs-name="common_types">dropdown</input-type>
+			<hint>Το είδος του τεκμηρίου</hint>
+			<required>Πρέπει να επιλέξετε το είδος του τεκμηρίου που υποβάλλετε.</required>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>title</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Τίτλος</label>
+			<input-type>textarea</input-type>
+			<hint>Ο επίσημος τίτλος του έργου, δοσμένος σε μία ή περισσότερες γλώσσες.</hint>
+			<required>Πρέπει να εισαγάγετε τουλάχιστον έναν τίτλο για το τεκμήριο που υποβάλλετε.</required>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>secondaryTitle</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Συμπληρωματικός / δευτερεύων τίτλος</label>
+			<input-type>textarea</input-type>
+			<hint> Ο δευτερεύων ή συμπληρωματικός τίτλος του έργου, αν υπάρχει, δοσμένος σε μία ή περισσότερες γλώσσες</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	     
+       <field>
+	         <dc-schema>dc</dc-schema>
+	         <dc-element>contributor</dc-element>
+	         <dc-qualifier>author</dc-qualifier>
+	         <repeatable>true</repeatable>
+	         <label>Ονόματα δημιουργών</label>
+	         <input-type>name</input-type>
+	         <hint>Τα ονόματα των δημιουργών του έργου, δοσμένα σε μία ή περισσότερες γλώσσες.</hint>
+	         <required>Πρέπει να εισαγάγετε το όνομα τουλάχιστον ενός δημιουργού.</required>
+	         <language value-pairs-name="common_iso_languages">true</language>
+	   </field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>description</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Γενική Περιγραφή / Σχόλια</label>
+			<input-type>textarea</input-type>
+			<hint>Γενική περιγραφή του υποβαλλόμενου τεκμηρίου ή συμπληρωματικά σχόλια.</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+       
+     	<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>classification</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Θεματικές κατηγορίες</label>
+			<!-- <input-type value-pairs-name="classificationSchemeList">qualdrop_value</input-type> -->
+			<input-type>onebox</input-type>
+			<hint> Η θεματική κατηγορία στην οποία ανήκει το έργο, π.χ. Μαθηματικά, Δομική Μηχανική κτλ. Μπορούν να επιλεγούν και παραπάνω από μία.</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>subject</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Λέξεις-κλειδιά</label>
+			<input-type>onebox</input-type>
+			<hint>Μια λέξη-κλειδί που περιγράφει το αντικείμενο του έργου.</hint>
+			<required>Πρέπει να εισαγάγετε τουλάχιστον μια λέξη-κλεδί.</required>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+		
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>coverage</dc-element>
+			<dc-qualifier>spatial</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Χωρική κάλυψη</label>
+			<input-type>onebox</input-type>
+			<hint>Χωρική τοποθεσία στην οποία αναφέρεται το περιεχόμενο του έργου.</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+		
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>coverage</dc-element>
+			<dc-qualifier>temporal</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Χρονική κάλυψη</label>
+			<input-type>onebox</input-type>
+			<hint>Χρονική περίοδος στην οποία αναφέρεται το περιεχόμενο του έργου.</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>contributorName</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Ονόματα συντελεστών</label>
+			<input-type>name</input-type>
+			<hint>Τα ονόματα των συντελεστών του έργου, αν υπάρχουν (ΕΞΑΙΡΟΥΝΤΑΙ τα ονόματα του επιβλέποντος και των μελών της εξεταστικής επιτροπής μιας εργασίας ή διατριβής).</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>identifier</dc-element>
+			<dc-qualifier>secondary</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Αναγνωριστικά έργου</label>
+			<input-type>onebox</input-type>
+			<hint>Ένα ή περισσότερα μοναδικά αναγνωριστικά που πιθανώς χαρακτηρίζουν το υποβαλλόμενο τεκμήριο (π.χ. DOI για μια δημοσίευση ή ISBN για ένα βιβλίο/μονογραφία).</hint>
+		</field>
+
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>language</dc-element>
+			<dc-qualifier>iso</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Γλώσσα τεκμηρίου</label>
+			<input-type value-pairs-name="common_iso_languages">dropdown</input-type>
+			<hint>Μία ή περισσότερες γλώσσες στις οποίες είναι εκφρασμένο το περιεχόμενο του έργου.</hint>
+		</field>
+
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>access</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Δικαιώματα πρόσβασης στο τεκμήριο</label>
+			<input-type value-pairs-name="accessTypeList">dropdown</input-type>
+			<hint>Δήλωση των δικαιωμάτων πρόσβασης στο πλήρες κείμενο του τεκμηρίου. Οι δυνατές επιλογές περιλαμβάνουν:
+				1) την ελεύθερη πρόσβαση από το ευρύ κοινό
+				2) την πρόσβαση στο πλήρες κείμενο μόνο από χρήστες με διεύθυνση IP του ιδρύματος
+				3) την πρόσβαση στο πλήρες κείμενο μόνο από πιστοποιημένους χρήστες του DSpace, και
+				4) την επιβολή χρονικού αποκλεισμού (embargo) πρόσβασης διάρκειας 6 μηνών, μετά το πέρας των οποίων το πλήρες κείμενο καθίσταται διαθέσιμο στο ευρύ κοινό
+			</hint>
+			<required>Πρέπει να επιλέξετε τα δικαιώματα πρόσβασης για το τεκμήριο που υποβάλλετε.</required>
+		</field>
+
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>recordProvider</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Ίδρυμα και Σχολή/Τμήμα του υποβάλλοντος</label>
+			<input-type>onebox</input-type>
+			<hint>Το όνομα του ιδρύματος και της Σχολής/Τμήματος που διαθέτει το συγκεκριμένο έργο στη μορφή:
+				«Ίδρυμα». «Σχολή ή Τμήμα», π.χ. Εθνικό Μετσόβιο Πολυτεχνείο. Σχολή Ηλεκτρολόγων Μηχανικών &amp; Μηχανικών Υπολογιστών.
+			</hint>
+			<required>Πρέπει να εισαγάγετε τουλάχιστον έναν Πάροχο Εγγραφής.</required>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+		
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>date</dc-element>
+			<dc-qualifier>issued</dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Ημερομηνία δημοσίευσης</label>
+			<input-type>date</input-type>
+			<hint>Η ημερομηνία κατά την οποία δημοσιεύτηκε το έργο (για την περίπτωση εργασίας ή διατριβής, η ημερομηνία που αναγράφεται στο εξώφυλλο).</hint>
+			<required>Πρέπει να εισαγάγετε τουλάχιστον το έτος δημοσίευσης.</required>
+			<!--  <type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Δημοσίευση σε συνέδριο,Δημοσίευση σε περιοδικό,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία,Τεχνική αναφορά,Σύνολο δεδομένων</type-bind> -->
+		</field>
+
+     </page>
+
+	 <page number="2">
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>description</dc-element>
+			<dc-qualifier>abstract</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Περίληψη</label>
+			<input-type>textarea</input-type>
+			<hint>Η περίληψη του έργου</hint>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Δημοσίευση σε συνέδριο,Δημοσίευση σε περιοδικό,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία,Τεχνική αναφορά,Σύνολο δεδομένων,Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>description</dc-element>
+			<dc-qualifier>tableofcontents</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Πίνακας περιεχομένων</label>
+			<input-type>textarea</input-type>
+			<hint>Ο πίνακας περιεχομένων του έργου</hint>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Δημοσίευση σε συνέδριο,Δημοσίευση σε περιοδικό,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία,Τεχνική αναφορά,Σύνολο δεδομένων,Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>description</dc-element>
+			<dc-qualifier>sponsorship</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Χορηγός</label>
+			<input-type>textarea</input-type>
+			<hint>Μια δήλωση σχετική με πιθανούς χορηγούς που χρηματοδότησαν την εκπόνηση του έργου (π.χ. μέσω χορήγησης υποτροφίας)</hint>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Δημοσίευση σε συνέδριο,Δημοσίευση σε περιοδικό,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία,Τεχνική αναφορά,Σύνολο δεδομένων</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>contributor</dc-element>
+			<dc-qualifier>advisor</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Όνομα επιβλέποντος</label>
+			<input-type>name</input-type>
+			<hint>Το όνομα του επιβλέποντος μέλους ΔΕΠ της εργασίας</hint>
+			<required>Πρέπει να εισαγάγετε το όνομα του επιβλέποντος</required>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>committeeMemberName</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Εξεταστική επιτροπή</label>
+			<input-type>name</input-type>
+			<hint>Τα ονόματα των μελών της εξεταστικής επιτροπής της εργασίας.</hint>
+			<required>Πρέπει να εισαγάγετε τα ονόματα όλων των μελών της εξεταστικής επιτροπής της εργασίας.</required>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>academicPublisher</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Εκδίδον τμήμα / τομέας</label>
+			<input-type>onebox</input-type>
+			<hint> Η Σχολή / Τμήμα του ιδρύματος στο οποίο εκπονήθηκε η εργασία ή χρησιμοποιείται το εκπαιδευτικό υλικό. Αν είναι γνωστοί ο συγκεκριμένος τομέας ή/και το εργαστήριο/
+				ερευνητική ομάδα, πρέπει να συμπληρωθούν στη μορφή:
+				«Σχολή ή Τμήμα». «Τομέας». «Εργαστήριο»., π.χ. Σχολή Ηλεκτρολόγων Μηχανικών &amp; Μηχανικών Υπολογιστών. Τομέας Πληροφορικής. Εργαστήριο Συστημάτων Βάσεων Γνώσης και Δεδομένων.
+			</hint>
+			<required>Πρέπει να εισαγάγετε τουλάχιστον μία Σχολή ή Τμήμα.</required>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>academicPublisherID</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Εκδίδον ίδρυμα</label>
+			<input-type value-pairs-name="institutionList">dropdown</input-type>
+			<hint>Το ίδρυμα στο οποίο εκπονήθηκε η εργασία ή χρησιμοποιείται το εκπαιδευτικό υλικό</hint>
+			<required>Πρέπει να επιλέξετε τουλάχιστον ένα ίδρυμα από τη λίστα.</required>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>format</dc-element>
+			<dc-qualifier>extent</dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Αριθμός σελίδων</label>
+			<input-type>onebox</input-type>
+			<hint>Ο συνολικός αριθμός σελίδων του έργου</hint>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Βιβλίο/Μονογραφία,Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>identifier</dc-element>
+			<dc-qualifier>citation</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Βιβλιογραφική αναφορά</label>
+			<input-type>onebox</input-type>
+			<hint> Η συνιστώμενη μορφή αναφοράς της διατριβής. Συνήθως, οι βιβλιογραφικές αναφορές δίνονται στη μορφή: 
+				«Όνομα Συγγραφέα», «Τίτλος διατριβής», «Σχολή/Τμήμα», «Ίδρυμα», «Έτος».
+			</hint>
+			<type-bind>Προπτυχιακή/Διπλωματική εργασία,Μεταπτυχιακή εργασία,Διδακτορική διατριβή,Δημοσίευση σε περιοδικό,Δημοσίευση σε συνέδριο,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>publisher</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Εκδότης</label>
+			<input-type>onebox</input-type>
+			<hint>Ο εκδότης του δημοσιευμένου έργου</hint>
+			<type-bind>Δημοσίευση σε συνέδριο,Δημοσίευση σε περιοδικό,Κεφάλαιο βιβλίου,Βιβλίο/Μονογραφία,Τεχνική αναφορά</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>journalName</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Όνομα περιοδικού</label>
+			<input-type>onebox</input-type>
+			<hint></hint>
+			<required>Πρέπει να εισαγάγετε το όνομα του περιοδικού</required>
+			<type-bind>Δημοσίευση σε περιοδικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+			</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>journalType</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Είδος περιοδικού</label>
+			<input-type value-pairs-name="journalTypeList">dropdown</input-type>
+			<hint>Διάκριση του περιοδικού με βάση την ύπαρξη διαδικασίας κρίσης για υποβαλλόμενα άρθρα.</hint>
+			<type-bind>Δημοσίευση σε περιοδικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>conferenceName</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Όνομα συνεδρίου</label>
+			<input-type>onebox</input-type>
+			<hint></hint>
+			<required>Πρέπει να εισαγάγετε το όνομα του συνεδρίου.</required>
+			<type-bind>Δημοσίευση σε συνέδριο</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>conferenceItemType</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Είδος δημοσίευσης σε συνέδριο</label>
+			<input-type value-pairs-name="conferenceItemTypeList">dropdown</input-type>
+			<hint>Το είδος της δημοσίευσης που επιθυμείτε να υποβάλετε</hint>
+			<required>Πρέπει να επιλέξετε το είδος της δημοσίευσης</required>
+			<type-bind>Δημοσίευση σε συνέδριο</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>bookName</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Όνομα βιβλίου</label>
+			<input-type>onebox</input-type>
+			<hint>Το όνομα του βιβλίου, του οποίου το κεφάλαιο αποτελεί μέρος.</hint>
+			<required>Πρέπει να εισαγάγετε το όνομα του βιβλίου.</required>
+			<type-bind>Κεφάλαιο βιβλίου</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>bookEdition</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Έκδοση βιβλίου</label>
+			<input-type>onebox</input-type>
+			<hint>Η έκδοση του βιβλίου, εκφρασμένη ως ένας ακέραιος αριθμός.</hint>
+			<type-bind>Βιβλίο/Μονογραφία</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>dc</dc-schema>
+			<dc-element>relation</dc-element>
+			<dc-qualifier>ispartofseries</dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Σειρά βιβλίου</label>
+			<input-type>onebox</input-type>
+			<hint>Η σειρά της οποίας το βιβλίο αποτελεί μέρος.</hint>
+			<language value-pairs-name="common_iso_languages">true</language>
+			<type-bind>Βιβλίο/Μονογραφία</type-bind>
+		</field>
+
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>duration</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable></repeatable>
+			<label>Διάρκεια οπτικοακουστικού υλικού</label>
+			<input-type>onebox</input-type>
+			<hint>Η διάρκεια του αντικειμένου στη μορφή ωω:λλ:δδ (ωω: ώρες, λλ: λεπτά, δδ: δευτερόλεπτα)</hint>
+			<type-bind>Βίντεο,Ήχος,Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>technicalRequirement</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Τεχνικές απαιτήσεις</label>
+			<input-type>textarea</input-type>
+			<hint>Τεχνικές απαιτήσεις για την ορθή αναπαραγωγή του αντικειμένου</hint>
+			<type-bind>Βίντεο, Ήχος,Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>learningResourceType</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Είδος εκπαιδευτικού υλικού</label>
+			<input-type value-pairs-name="learningResourceTypeList">dropdown</input-type>
+			<hint>Το είδος του εκπαιδευτικού υλικού.</hint>
+			<required>Πρέπει να επιλέξετε το είδος εκπαιδευτικού υλικού που υποβάλλετε.</required>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>courseDetails</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>true</repeatable>
+			<label>Λεπτομέρειες μαθήματος</label>
+			<input-type>textarea</input-type>
+			<hint>Λεπτομέρειες για το μάθημα το οποίο υποστηρίζει το παρόν εκπαιδευτικό υλικό. Η τιμή του πεδίου
+				περιλαμβάνει το όνομα του μαθήματος, το εξάμηνο διδασκαλίας, καθώς και το επίπεδο σπουδών (προπτυχιακό ή μεταπτυχιακό), στη μορφή 
+				«Όνομα μαθήματος» [«Εξάμηνο», «Επίπεδο»], π.χ. Διαφορικές Εξισώσεις [3ο εξάμηνο, προπτυχιακό].
+			</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>interactivityLevel</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Επίπεδο διαδραστικότητας</label>
+			<input-type value-pairs-name="interactivity_levels">dropdown</input-type>
+			<hint>Εισάγετε το επίπεδο διαδραστικότητας του αντικειμένου.</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>difficulty</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Βαθμός Δυσκολίας</label>
+			<input-type value-pairs-name="difficulty_levels">dropdown</input-type>
+			<hint>Εισάγετε το βαθμό δυσκολίας του αντικειμένου.</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>typicalLearningTime</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Τυπικός χρόνος εκμάθησης</label>
+			<input-type>onebox</input-type>
+			<hint>Εισάγετε τον τυπικό χρόνο μάθησης του αντικειμένου στη μορφή ωω:λλ:δδ (ωω: ώρες, λλ: λεπτά, δδ: δευτερόλεπτα)</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>useDescription</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Σχόλια για τη χρήση του αντικειμένου</label>
+			<input-type>textarea</input-type>
+			<hint>Εισάγετε σχόλια για τη χρήση του αντικειμένου.</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+	
+		<field>
+			<dc-schema>heal</dc-schema>
+			<dc-element>version</dc-element>
+			<dc-qualifier></dc-qualifier>
+			<repeatable>false</repeatable>
+			<label>Έκδοση</label>
+			<input-type>onebox</input-type>
+			<hint>Παρακαλώ εισάγετε την έκδοση του τεκμηρίου.</hint>
+			<type-bind>Εκπαιδευτικό υλικό</type-bind>
+			<language value-pairs-name="common_iso_languages">true</language>
+		</field>
+
+     </page>
+   </form>
+
+   <!--  <form name="one">
+     <page number="1">
+       <field>
+         <dc-schema>dc</dc-schema>
+         <dc-element>contributor</dc-element>
+         <dc-qualifier>author</dc-qualifier>
+         <repeatable>true</repeatable>
+         <label>One: Authors</label>
+         <input-type>name</input-type>
+         <hint>Enter the names of the authors of this item.</hint>
+         <required></required>
+       </field>
+      </page>
+    </form> -->
+ </form-definitions>
+
+
+ <!-- form-value-pairs populate dropdown and qualdrop-value lists.          -->
+ <!-- The form-value-pairs element holds child elements named 'value-pairs' -->
+ <!-- A 'value-pairs' element has a value-pairs-name and a dc-term          -->
+ <!-- attribute. The dc-term attribute specifies which to which Dublin Core -->
+ <!-- Term this set of value-pairs applies.                                 -->
+ <!--     Current dc-terms are: identifier-pairs, type-pairs, and           -->
+ <!--     language_iso-pairs. The name attribute matches a name             -->
+ <!--     in the form-map, above.                                           -->
+ <!-- A value-pair contains one 'pair' for each value displayed in the list -->
+ <!-- Each pair contains a 'displayed-value' element and a 'stored-value'   -->
+ <!-- element. A UI list displays the displayed-values, but the program     -->
+ <!-- stores the associated stored-values in the database.                  -->
+
+ <form-value-pairs>
+   <value-pairs value-pairs-name="common_identifiers" dc-term="identifier">
+     <pair>
+       <displayed-value>ISSN</displayed-value>
+       <stored-value>issn</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Other</displayed-value>
+       <stored-value>other</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>ISMN</displayed-value>
+       <stored-value>ismn</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Gov't Doc #</displayed-value>
+       <stored-value>govdoc</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>URI</displayed-value>
+       <stored-value>uri</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>ISBN</displayed-value>
+       <stored-value>isbn</stored-value>
+     </pair>
+   </value-pairs>
+
+	<value-pairs value-pairs-name="common_types" dc-term="type">
+		<pair>
+			<displayed-value>Προπτυχιακή/Διπλωματική εργασία</displayed-value>
+			<stored-value>Προπτυχιακή/Διπλωματική εργασία</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Μεταπτυχιακή εργασία</displayed-value>
+			<stored-value>Μεταπτυχιακή εργασία</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Διδακτορική διατριβή</displayed-value>
+			<stored-value>Διδακτορική διατριβή</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Δημοσίευση σε συνέδριο</displayed-value>
+			<stored-value>Δημοσίευση σε συνέδριο</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Δημοσίευση σε περιοδικό</displayed-value>
+			<stored-value>Δημοσίευση σε περιοδικό</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Κεφάλαιο βιβλίου</displayed-value>
+			<stored-value>Κεφάλαιο βιβλίου</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Βιβλίο/Μονογραφία</displayed-value>
+			<stored-value>Βιβλίο/Μονογραφία</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τεχνική αναφορά</displayed-value>
+			<stored-value>Τεχνική αναφορά</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Εκπαιδευτικό υλικό</displayed-value>
+			<stored-value>Εκπαιδευτικό υλικό</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Σύνολο δεδομένων</displayed-value>
+			<stored-value>Σύνολο δεδομένων</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Εικόνα</displayed-value>
+			<stored-value>Εικόνα</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Βίντεο</displayed-value>
+			<stored-value>Βίντεο</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Ήχος</displayed-value>
+			<stored-value>Ήχος</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Άλλο</displayed-value>
+			<stored-value>Άλλο</stored-value>
+		</pair>
+	</value-pairs>
+
+   <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso">
+		<pair>
+			<displayed-value>Μη εφαρμόσιμο</displayed-value>
+			<stored-value></stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Ελληνικά</displayed-value>
+			<stored-value>el</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Αγγλικά</displayed-value>
+			<stored-value>en</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Γερμανικά</displayed-value>
+			<stored-value>de</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Γαλλικά</displayed-value>
+			<stored-value>fr</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Άλλη</displayed-value>
+			<stored-value>other</stored-value>
+		</pair>
+   </value-pairs>
+   
+	<value-pairs value-pairs-name="accessTypeList" dc-term="access">
+		<pair>
+			<displayed-value>Δημόσια διαθέσιμο</displayed-value>
+			<stored-value>free</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Διαθέσιμο σε χρήστες με IP του ιδρύματος</displayed-value>
+			<stored-value>campus</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Διαθέσιμο σε πιστοποιημένους DSpace χρήστες</displayed-value>
+			<stored-value>account</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Χρονικός αποκλεισμός (6 μήνες)</displayed-value>
+			<stored-value>embargo</stored-value>
+		</pair>
+	</value-pairs>
+	
+	<value-pairs value-pairs-name="institutionList" dc-term="academicPublisherID">
+		<pair>
+			<displayed-value>Ανωτάτη Σχολή Καλών Τεχνών</displayed-value>
+			<stored-value>asfa</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Ανώτατη Σχολή Παιδαγωγικής και Τεχνολογικής Εκπαίδευσης (ΑΣΠΑΙΤΕ)</displayed-value>
+			<stored-value>aspete</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης</displayed-value>
+			<stored-value>auth</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Γεωπονικό Πανεπιστήμιο Αθηνών</displayed-value>
+			<stored-value>aua</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Δημοκρίτειο Πανεπιστήμιο Θράκης</displayed-value>
+			<stored-value>duth</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Διεθνές Πανεπιστήμιο Ελλάδος</displayed-value>
+			<stored-value>ihu</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών</displayed-value>
+			<stored-value>uoa</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Εθνικό Μετσόβιο Πολυτεχνείο</displayed-value>
+			<stored-value>ntua</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Ελληνικό Ανοικτό Πανεπιστήμιο</displayed-value>
+			<stored-value>eap</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Ιόνιο Πανεπιστήμιο</displayed-value>
+			<stored-value>ionio</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Οικονομικό Πανεπιστήμιο Αθηνών</displayed-value>
+			<stored-value>aueb</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Αιγαίου</displayed-value>
+			<stored-value>aegean</stored-value>
+		</pair>
+		<!--  <pair>
+			<displayed-value>Πανεπιστήμιο Δυτικής Ελλάδας</displayed-value>
+			<stored-value>uwg</stored-value>
+		</pair>  -->
+		<pair>
+			<displayed-value>Πανεπιστήμιο Δυτικής Μακεδονίας</displayed-value>
+			<stored-value>uowm</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Θεσσαλίας</displayed-value>
+			<stored-value>uth</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Ιωαννίνων</displayed-value>
+			<stored-value>uoi</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Κρήτης</displayed-value>
+			<stored-value>uoc</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Μακεδονίας</displayed-value>
+			<stored-value>uom</stored-value>
+		</pair>
+		<!--  <pair>
+			<displayed-value>Πανεπιστήμιο Στερεάς Ελλάδος</displayed-value>
+			<stored-value>ucg</stored-value>
+		</pair>  -->
+		<pair>
+			<displayed-value>Πανεπιστήμιο Πατρών</displayed-value>
+			<stored-value>upatras</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Πειραιώς</displayed-value>
+			<stored-value>unipi</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πανεπιστήμιο Πελοποννήσου</displayed-value>
+			<stored-value>uop</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πάντειο Πανεπιστήμιο</displayed-value>
+			<stored-value>panteion</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πολυτεχνείο Κρήτης</displayed-value>
+			<stored-value>tuc</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Χαροκόπειο Πανεπιστήμιο</displayed-value>
+			<stored-value>hua</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Αθήνας</displayed-value>
+			<stored-value>teiath</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Δυτικής Μακεδονίας</displayed-value>
+			<stored-value>teikoz</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Ηπείρου</displayed-value>
+			<stored-value>teiep</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Αλεξάνδρειο Τ.Ε.Ι. Θεσσαλονίκης</displayed-value>
+			<stored-value>teithe</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Ιόνιων Νήσων</displayed-value>
+			<stored-value>teiion</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Ανατολικής Μακεδονίας και Θράκης</displayed-value>
+			<stored-value>teikav</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Πελοποννήσου</displayed-value>
+			<stored-value>teikal</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Κρήτης</displayed-value>
+			<stored-value>teicrete</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Στερεάς Ελλάδας</displayed-value>
+			<stored-value>teicg</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Θεσσαλίας</displayed-value>
+			<stored-value>teilar</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Δυτικής Ελλάδας</displayed-value>
+			<stored-value>teiwest</stored-value>
+		</pair>
+		<!--  <pair>
+			<displayed-value>Τ.Ε.Ι. Πατρών</displayed-value>
+			<stored-value>teipat</stored-value>
+		</pair>  -->
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Πειραιά</displayed-value>
+			<stored-value>teipir</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Τ.Ε.Ι. Κεντρικής Μακεδονίας</displayed-value>
+			<stored-value>teiser</stored-value>
+		</pair>
+		<!--  <pair>
+			<displayed-value>Τ.Ε.Ι. Χαλκίδας</displayed-value>
+			<stored-value>teihal</stored-value>
+		</pair>  -->
+	</value-pairs>
+
+	<value-pairs value-pairs-name="journalTypeList" dc-term="journalType">
+		<pair>
+			<displayed-value>Με διαδικασία κρίσης από ομότιμους κριτές (peer review)</displayed-value>
+			<stored-value>peer-reviewed</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Χωρίς διαδικασία κρίσης</displayed-value>
+			<stored-value>non peer-reviewed</stored-value>
+		</pair>
+	</value-pairs>
+	<value-pairs value-pairs-name="conferenceItemTypeList" dc-term="conferenceItemType">
+		<pair>
+			<displayed-value>Poster</displayed-value>
+			<stored-value>poster</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Πλήρης δημοσίευση (full paper)</displayed-value>
+			<stored-value>full paper</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Demo</displayed-value>
+			<stored-value>demo</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Δημοσίευση με περίληψη (short paper)</displayed-value>
+			<stored-value>short paper</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Περίληψη</displayed-value>
+			<stored-value>abstract</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Σεμινάριο</displayed-value>
+			<stored-value>tutorial</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Άλλο</displayed-value>
+			<stored-value>other</stored-value>
+		</pair>
+	</value-pairs>
+
+	<value-pairs value-pairs-name="learningResourceTypeList" dc-term="learningResourceType">
+		<pair>
+			<displayed-value>Σημειώσεις διαλέξεων</displayed-value>
+			<stored-value>lectureNotes</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Διαφάνειες διαλέξεων</displayed-value>
+			<stored-value>slides</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Επεξεργασμένα παραδείγματα/Ασκήσεις προς λύση</displayed-value>
+			<stored-value>exercise</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Άλλο</displayed-value>
+			<stored-value>other</stored-value>
+		</pair>
+	</value-pairs>
+	
+	<value-pairs value-pairs-name="interactivity_levels" dc-term="interactivityLevel">
+     <pair>
+       <displayed-value>Πολύ Χαμηλό</displayed-value>
+	   <stored-value>very low</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Χαμηλό</displayed-value>
+	   <stored-value>low</stored-value>
+      </pair>
+     <pair>
+       <displayed-value>Μέτριο</displayed-value>
+	   <stored-value>medium</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Υψηλό</displayed-value>
+	   <stored-value>high</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Πολύ Υψηλό</displayed-value>
+	   <stored-value>very high</stored-value>
+     </pair>
+   </value-pairs>
+   
+   	<value-pairs value-pairs-name="difficulty_levels" dc-term="difficulty">
+     <pair>
+       <displayed-value>Πολύ Χαμηλό</displayed-value>
+	   <stored-value>very low</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Χαμηλό</displayed-value>
+	   <stored-value>low</stored-value>
+      </pair>
+     <pair>
+       <displayed-value>Μέτριο</displayed-value>
+	   <stored-value>medium</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Υψηλό</displayed-value>
+	   <stored-value>high</stored-value>
+     </pair>
+     <pair>
+       <displayed-value>Πολύ Υψηλό</displayed-value>
+	   <stored-value>very high</stored-value>
+     </pair>
+   </value-pairs>
+
+ </form-value-pairs>
+
+</input-forms>

@@ -179,7 +179,7 @@
    <!--This "traditional" process defines the DEFAULT item submission process-->
    <submission-process name="traditional">
      
-     <!--Uncommment to display the SAMPLE step as your first step-->
+     <!--Uncomment to display the SAMPLE step as your first step-->
      <!--<step id="sample"/>-->
 
 	 <!-- Step 1. Since DSpace 4.0, the initial questions has been disabled. Metadata are shown exactly as 
@@ -258,7 +258,7 @@
 
       <!--Step 6 will be to select a Creative Commons License-->
       <!-- Uncomment this step to allow the user to select a Creative Commons license -->
-       <!--
+       
       <step>
         <heading>submit.progressbar.CClicense</heading>
         <processing-class>org.dspace.submit.step.CCLicenseStep</processing-class>
@@ -266,7 +266,7 @@
 		<xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.CCLicenseStep</xmlui-binding>
 		<workflow-editable>false</workflow-editable>
       </step>
-      -->
+      
 
       <!--Step 7 will be to Sign off on the License-->
       <step>
@@ -277,8 +277,62 @@
 		<workflow-editable>false</workflow-editable>
       </step>
 
-
+	 <!--HEAL metadata processing -->
+	 <step>
+		<heading></heading>
+		<processing-class>org.dspace.submit.step.ProcessMetadataStep</processing-class>
+		<workflow-editable>false</workflow-editable>
+	 </step>
      
+   </submission-process>
+   
+   <!-- This is a submission process that includes the embargo steps -->
+   <submission-process name="with-embargo">
+   	 <step>
+		<processing-class>org.dspace.submit.step.SkipInitialQuestionsStep</processing-class>
+	 </step>
+	 <step>
+	       <heading>submit.progressbar.describe</heading>
+	       <processing-class>org.dspace.submit.step.DescribeStep</processing-class>
+	       <jspui-binding>org.dspace.app.webui.submit.step.JSPDescribeStep</jspui-binding>
+		   <xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.DescribeStep</xmlui-binding>
+	       <workflow-editable>true</workflow-editable>
+      </step>
+      <step>
+           <heading>submit.progressbar.access</heading>
+           <processing-class>org.dspace.submit.step.AccessStep</processing-class>
+           <jspui-binding>org.dspace.app.webui.submit.step.JSPAccessStep</jspui-binding>
+           <xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.AccessStep</xmlui-binding>
+           <workflow-editable>true</workflow-editable>
+       </step>
+       <step>
+           <heading>submit.progressbar.upload</heading>
+           <processing-class>org.dspace.submit.step.UploadWithEmbargoStep</processing-class>
+           <jspui-binding>org.dspace.app.webui.submit.step.JSPUploadWithEmbargoStep</jspui-binding>
+           <xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.UploadWithEmbargoStep</xmlui-binding>
+           <workflow-editable>true</workflow-editable>
+       </step>
+       <step>
+       		<heading>submit.progressbar.verify</heading>
+       		<processing-class>org.dspace.submit.step.VerifyStep</processing-class>
+ 	   		<jspui-binding>org.dspace.app.webui.submit.step.JSPVerifyStep</jspui-binding>
+	   		<xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.ReviewStep</xmlui-binding>
+			<workflow-editable>true</workflow-editable>
+      </step>
+      <step>
+       		<heading>submit.progressbar.CClicense</heading>
+        	<processing-class>org.dspace.submit.step.CCLicenseStep</processing-class>
+        	<jspui-binding>org.dspace.app.webui.submit.step.JSPCCLicenseStep</jspui-binding>
+			<xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.CCLicenseStep</xmlui-binding>
+			<workflow-editable>false</workflow-editable>
+      </step>
+      <step>
+      		<heading>submit.progressbar.license</heading>
+        	<processing-class>org.dspace.submit.step.LicenseStep</processing-class>
+        	<jspui-binding>org.dspace.app.webui.submit.step.JSPLicenseStep</jspui-binding>
+			<xmlui-binding>org.dspace.app.xmlui.aspect.submission.submit.LicenseStep</xmlui-binding>
+			<workflow-editable>false</workflow-editable>
+      </step>
    </submission-process>
 
  </submission-definitions>
