@@ -189,8 +189,10 @@
                   .append("contextPath: '").append(contextPath)
                   .append("', confidenceName: '").append(confidenceName)
                   .append("', confidenceIndicatorID: '").append(confIndID)
-                  .append("', collection: ").append(String.valueOf(collection.getID()))
-                        .append(" }); </script>");
+                  //modified by dspanos
+                  .append("', collection: '").append(String.valueOf(collection.getID()))
+                        .append("' }); </script>");
+                  //end dspanos
             }
 
             // put up a SELECT element containing all choices
@@ -231,8 +233,10 @@
                   .append(contextPath).append("/tools/lookup.jsp','")
                   .append(fieldName).append("','edit_metadata','")
                   .append(fieldInput).append("','").append(authorityName).append("','")
-                  .append(confIndID).append("',")
-                  .append(String.valueOf(collection.getID())).append(",")
+                  //modified by dspanos
+                  .append(confIndID).append("','")
+                  .append(String.valueOf(collection.getID())).append("',")
+                  //end dspanos
                   .append(String.valueOf(isName)).append(",false);\"")
                         .append(" title=\"")
                   .append(LocaleSupport.getLocalizedMessage(pageContext, "jsp.tools.lookup.lookup"))
@@ -695,6 +699,127 @@
       out.write(sb.toString());
     }
 
+    //modified by dspanos
+    String doAutocomplete(javax.servlet.jsp.JspWriter out, Item item,
+      String fieldName, String schema, String element, String qualifier, boolean repeatable, boolean required, boolean readonly,
+      int fieldCountIncr, String label, PageContext pageContext, String vocabulary, boolean closedVocabulary, Collection collection,
+      boolean language, List<String> valueLanguageList)
+      throws java.io.IOException
+    {
+      String authorityType = getAuthorityType(pageContext, fieldName, collection);
+      List<MetadataValue> defaults = ContentServiceFactory.getInstance().getItemService().getMetadata(item, schema, element, qualifier, Item.ANY);
+      int fieldCount = defaults.size() + fieldCountIncr;
+      StringBuffer sb = new StringBuffer();
+      StringBuffer acb = new StringBuffer();
+      String val, auth;
+      int conf= 0;
+
+      if (fieldCount == 0)
+         fieldCount = 1;
+
+      sb.append("<div class=\"row\"><label class=\"col-md-2"+ (required?" label-required":"") +"\">")
+        .append(label)
+        .append("</label>");
+      sb.append("<div class=\"col-md-10\">");  
+      for (int i = 0; i < fieldCount; i++)
+      { 
+          String lang = null;
+         
+           if (i < defaults.size())
+           {
+             val = defaults.get(i).getValue().replaceAll("\"", "&quot;");
+             lang = defaults.get(i).getLanguage();
+             auth = defaults.get(i).getAuthority();
+             conf = defaults.get(i).getConfidence();
+           }
+           else
+           {
+             val = "";
+             auth = "";
+             conf= unknownConfidence;
+           }
+
+           sb.append("<div class=\"row col-md-12\">");
+           String fieldNameIdx = fieldName + ((repeatable)?"_" + (i+1):""); 
+           
+           acb.append("input#" + fieldNameIdx);
+           if (i < fieldCount-1)
+        	   acb.append(",");
+            
+           if (language)
+           {
+               sb.append("<div class=\"col-md-8\">");
+           }
+           else 
+           {
+               sb.append("<div class=\"col-md-10\">");
+           }
+         
+           if (authorityType != null)
+           {
+        	   sb.append("<div class=\"row col-md-10\">");
+           }
+           sb.append("<input class=\"form-control\" type=\"text\" name=\"")
+             .append(fieldNameIdx)
+             .append("\" id=\"")
+             .append(fieldNameIdx).append("\" size=\"50\" value=\"")
+             .append(val +"\"")
+             .append((hasVocabulary(vocabulary)&&closedVocabulary) || readonly?" readonly=\"readonly\" ":"")
+             .append("/>")
+			 .append(doControlledVocabulary(fieldNameIdx, pageContext, vocabulary, readonly))             
+             .append("</div>");
+           
+           if (language) 
+           {
+               if(null == lang)
+               {
+                    lang = ConfigurationManager.getProperty("default.language");
+               }
+               sb.append("<div class=\"col-md-2\">");
+               sb = doLanguageTag(sb, fieldNameIdx, valueLanguageList, lang);
+               sb.append("</div>");
+           }
+            
+           if (authorityType != null)
+           {
+        	   sb.append("<div class=\"col-md-2\">");
+	           sb.append(doAuthority(pageContext, fieldName, i,  fieldCount,
+                              fieldName, auth, conf, false, repeatable,
+                              defaults, null, collection));
+           	   sb.append("</div></div>");
+           }             
+
+          if (repeatable && !readonly && i < fieldCount - 1)
+          {
+             // put a remove button next to filled in values
+             sb.append("<button class=\"btn btn-danger col-md-2\" name=\"submit_")
+               .append(fieldName)
+               .append("_remove_")
+               .append(i)
+               .append("\" value=\"")
+               .append(LocaleSupport.getLocalizedMessage(pageContext, "jsp.submit.edit-metadata.button.remove"))
+               .append("\"><span class=\"glyphicon glyphicon-trash\"></span>&nbsp;&nbsp;"+LocaleSupport.getLocalizedMessage(pageContext, "jsp.submit.edit-metadata.button.remove")+"</button>");
+          }
+          else if (repeatable && !readonly && i == fieldCount - 1)
+          {
+             // put a 'more' button next to the last space
+             sb.append("<button class=\"btn btn-default col-md-2\" name=\"submit_")
+               .append(fieldName)
+               .append("_add\" value=\"")
+               .append(LocaleSupport.getLocalizedMessage(pageContext, "jsp.submit.edit-metadata.button.add"))
+               .append("\"><span class=\"glyphicon glyphicon-plus\"></span>&nbsp;&nbsp;"+LocaleSupport.getLocalizedMessage(pageContext, "jsp.submit.edit-metadata.button.add")+"</button>");
+          }
+
+          sb.append("</div>");
+        }
+      sb.append("</div>");
+      sb.append("</div><br/>");
+	  
+      out.write(sb.toString());
+      return acb.toString();
+    }
+    //end dspanos
+    
     void doOneBox(javax.servlet.jsp.JspWriter out, Item item,
       String fieldName, String schema, String element, String qualifier, boolean repeatable, boolean required, boolean readonly,
       int fieldCountIncr, String label, PageContext pageContext, String vocabulary, boolean closedVocabulary, Collection collection,
@@ -1440,6 +1565,9 @@
 	 int pageIdx = pageNum - 1;
      DCInput[] inputs = inputSet.getPageRows(pageIdx, si.getSubmissionItem().hasMultipleTitles(),
                                                 si.getSubmissionItem().isPublishedBefore() );
+     //modified by dspanos
+     StringBuffer acSelectors = new StringBuffer();
+     //end dspanos
      for (int z = 0; z < inputs.length; z++)
      {
        boolean readonly = false;
@@ -1580,13 +1708,21 @@
           doList(out, item, fieldName, dcSchema, dcElement, dcQualifier,
                         repeatable, required, readonly, inputs[z].getPairs(), label);
        }
+       //modified by dspanos
+       else if (inputType.equals("autocomplete")){
+    	   if (acSelectors.length() > 0)
+    		   acSelectors.append(",");
+    	   acSelectors.append(doAutocomplete(out, item, fieldName, dcSchema, dcElement, dcQualifier,
+                   repeatable, required, readonly, fieldCountIncr, label, pageContext, vocabulary,
+                   closedVocabulary, collection, language, inputs[z].getValueLanguageList()));
+       }
+       //end dspanos
        else
        {
                         doOneBox(out, item, fieldName, dcSchema, dcElement, dcQualifier,
                                  repeatable, required, readonly, fieldCountIncr, label, pageContext, vocabulary,
                                  closedVocabulary, collection, language, inputs[z].getValueLanguageList());
        }
-       
      } // end of 'for rows'
 %>
         
@@ -1608,5 +1744,27 @@
     		</div><br/>
 </div>    		
     </form>
-
+<%-- modified by dspanos --%>    
+<%
+	if (acSelectors.length()>0){
+		String serviceURI = contextPath + "/json/rdf";
+		//String healpUrl = ConfigurationManager.getProperty("rdfSearch.healpUrl");
+%>
+	  <script type="text/javascript">
+       			jQuery(function() {
+       					var acelem = jQuery( '<%=acSelectors.toString()%>' );
+       					acelem.autocomplete({
+       						source: function(request, response) { 
+       							jQuery.getJSON('<%= serviceURI %>', { vocab: "", term: request.term }, response); }, 
+       						minLength: 3,
+       						open: function() { 
+       					        jQuery("<%=acSelectors.toString()%>").autocomplete("widget").width(600) 
+       					    }  
+       					});
+       				});    
+       </script>
+<%
+	}
+%>
+<%-- end dspanos --%>
 </dspace:layout>

@@ -24,6 +24,10 @@ import org.dspace.submit.AbstractProcessingStep;
 public class ProcessMetadataStep extends AbstractProcessingStep {
 	
 	public static final String HEAL_SCHEMA = "heal";
+	
+	public static final String SOURCE_PREFIX = " (URL: ";
+	
+	public static final String SOURCE_SUFFIX = ")";
 
 	@Override
 	public int doProcessing(Context context, HttpServletRequest request, HttpServletResponse response, SubmissionInfo subInfo)
@@ -45,6 +49,38 @@ public class ProcessMetadataStep extends AbstractProcessingStep {
 				itemService.removeMetadataValues(context, item, Arrays.asList(mv));
 				itemService.addMetadata(context, item, HEAL_SCHEMA, "typicalLearningTime", null, null, createXSDDurationString(mv.getValue()));
 			}	
+		}
+		
+		//heal.classification and dc.subject: split autocompleted values to two fields
+		List<MetadataValue> mvClassifications = itemService.getMetadata(item, HEAL_SCHEMA, "classification", null, Item.ANY);
+		for (MetadataValue mv : mvClassifications){
+			String value = mv.getValue();
+			String uri = null;
+			if (value.contains(SOURCE_PREFIX)) {
+				try {
+					itemService.removeMetadataValues(context, item, Arrays.asList(mv));
+					value = value.substring(0, value.lastIndexOf(SOURCE_PREFIX));
+					uri = mv.getValue().substring(mv.getValue().lastIndexOf(SOURCE_PREFIX) + SOURCE_PREFIX.length()-1, mv.getValue().lastIndexOf(SOURCE_SUFFIX));
+					itemService.addMetadata(context, item, HEAL_SCHEMA, "classification", null, mv.getLanguage(), value);
+					itemService.addMetadata(context, item, HEAL_SCHEMA, "classificationURI", null, null, uri);
+				}catch(Exception e) { //handle any bad user input
+				}
+			}
+		}
+		List<MetadataValue> mvKeywords = itemService.getMetadata(item, "dc", "subject", null, Item.ANY);
+		for (MetadataValue mv : mvKeywords){
+			String value = mv.getValue();
+			String uri = null;
+			if (value.contains(SOURCE_PREFIX)) {
+				try {
+					itemService.removeMetadataValues(context, item, Arrays.asList(mv));
+					value = value.substring(0, value.lastIndexOf(SOURCE_PREFIX));
+					uri = mv.getValue().substring(mv.getValue().lastIndexOf(SOURCE_PREFIX) + SOURCE_PREFIX.length()-1, mv.getValue().lastIndexOf(SOURCE_SUFFIX));
+					itemService.addMetadata(context, item, "dc", "subject", null, mv.getLanguage(), value);
+					itemService.addMetadata(context, item, HEAL_SCHEMA, "keywordURI", null, null, uri);
+				}catch(Exception e) { //handle any bad user input
+				}
+			}
 		}
 		return 0;
 	}

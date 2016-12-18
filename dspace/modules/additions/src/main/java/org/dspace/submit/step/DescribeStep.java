@@ -280,9 +280,12 @@ public class DescribeStep extends AbstractProcessingStep
                     }
                 }
             }
+            //modified by dspanos
             else if ((inputType.equals("onebox"))
                     || (inputType.equals("twobox"))
-                    || (inputType.equals("textarea")))
+                    || (inputType.equals("textarea"))
+                    || (inputType.equals("autocomplete")))
+            //end dspanos
             {
                 readText(context, request, item, schema, element, qualifier, inputs[j]
                         .getRepeatable(), LANGUAGE_QUALIFIER, inputs[j].getLanguage());
