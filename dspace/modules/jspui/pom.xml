@@ -17,7 +17,7 @@
     </parent>
     
     <!-- modified by dspanos -->
-    <repositories>
+    <!--  <repositories>
 		<repository>
 			<id>psiegman-snapshots</id>
 			<url>https://github.com/psiegman/mvn-repo/raw/master/snapshots</url>
@@ -27,6 +27,13 @@
 			<name>JLangDetect Maven repository</name>
 			<url>https://jlangdetect.googlecode.com/svn/repo</url>
 		</repository>
+	</repositories>  -->
+	<repositories>
+	    <repository>
+	        <id>jlangdetect.local</id>
+	        <name>JLangDetect Local Repository</name>
+	        <url>file:${project.basedir}/repo</url>
+	    </repository>
 	</repositories>
 	<!-- end dspanos -->
 
