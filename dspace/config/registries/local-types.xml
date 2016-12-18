@@ -51,10 +51,10 @@
 		heal.keyword.other -> dc.subject
 		heal.spatialCoverage -> dc.coverage.spatial
 		heal.temporalCoverage -> dc.coverage.temporal
-		heal.identifierPrimary -> dc.identifier.uri
+		heal.identifier -> dc.identifier.uri
 		heal.dateAvailable -> dc.date.available
 		heal.language -> dc.language.iso
-		heal.license -> dc.rights.uri, dc.rights.license
+		heal.license -> dc.rights.uri, dc.rights
 		heal.isReferencedBy -> dc.relation.isreferencedby
 		heal.fileFormat -> dc.format.mimetype
 		heal.publicationDate -> dc.date.issued
@@ -70,7 +70,7 @@
 		heal.hasPart -> dc.relation.haspart
 		heal.requires -> dc.relation.requires
 		heal.isRelatedTo -> dc.relation
-		heal.dateCreated -> dc.date.issued
+		heal.dateCreated -> dc.date.created
 		
 		Qualified fields where qualifiers do not appear in healMeta:
 		heal.classificationURI
@@ -401,8 +401,8 @@
 	
 	<dc-type>
 		<schema>heal</schema>
-		<element>identifier</element>
-		<qualifier>secondary</qualifier>
+		<element>identifierSecondary</element>
+		<!-- unqualified -->
 		<scope_note></scope_note>
 	</dc-type>
 
