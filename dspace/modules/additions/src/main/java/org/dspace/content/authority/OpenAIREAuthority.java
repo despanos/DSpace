@@ -120,7 +120,7 @@ public class OpenAIREAuthority implements ChoiceAuthority
 							pair.snd = element.getElementsByTagName("stored-value").item(0).getFirstChild().getNodeValue();
 							OpenAIREAuthority.pairs.add(pair);
 						} else 
-							throw new Exception("Invalid Node readed");
+							throw new Exception("Invalid Node read");
 					}
 				} catch (Exception e) {
 					OpenAIREAuthority.log.error("Unable to parse file "+defsFile, e);
