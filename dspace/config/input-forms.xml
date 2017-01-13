@@ -201,10 +201,11 @@
 			<dc-qualifier></dc-qualifier>
 			<repeatable>true</repeatable>
 			<label>Item access details</label>
-			<input-type value-pairs-name="common_iso_languages">dropdown</input-type>			
+			<input-type>textarea</input-type>			
 			<hint>In case the access scheme is different from the aforementioned 4 cases, please describe it in the following textbox.
 			</hint>
 			<required></required>
+			<language value-pairs-name="common_iso_languages">true</language>
 		</field>
 
 		<field>
@@ -512,7 +513,7 @@
 			<dc-element>courseDetails</dc-element>
 			<dc-qualifier></dc-qualifier>
 			<repeatable>true</repeatable>
-			<label>Course details</label>
+			<label>Related courses</label>
 			<input-type>textarea</input-type>
 			<hint>Details for the course(s) supporting the described material. The value of this field includes the course name, the semester, as
 				well as the course level (undergraduate or postgraduate), in the form 
@@ -703,10 +704,6 @@
      -->
    <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso">
 		<pair>
-			<displayed-value>N/A</displayed-value>
-			<stored-value></stored-value>
-		</pair>
-		<pair>
 			<displayed-value>Greek</displayed-value>
 			<stored-value>ell</stored-value>
 		</pair>
@@ -725,6 +722,10 @@
 		<pair>
 			<displayed-value>Other</displayed-value>
 			<stored-value>other</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>N/A</displayed-value>
+			<stored-value></stored-value>
 		</pair>
    </value-pairs>
    
