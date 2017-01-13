@@ -197,10 +197,11 @@
 			<dc-qualifier></dc-qualifier>
 			<repeatable>true</repeatable>
 			<label>Λεπτομέρειες πρόσβασης στο τεκμήριο</label>
-			<input-type value-pairs-name="common_iso_languages">dropdown</input-type>			
+			<input-type>textarea</input-type>			
 			<hint>Στην περίπτωση που το καθεστώς πρόσβασης δεν εμπίπτει σε κάποια από τις παραπάνω 4 περιπτώσεις, περιγράψτε το στο ακόλουθο πεδίο.
 			</hint>
 			<required></required>
+			<language value-pairs-name="common_iso_languages">true</language>
 		</field>
 
 		<field>
@@ -507,7 +508,7 @@
 			<dc-element>courseDetails</dc-element>
 			<dc-qualifier></dc-qualifier>
 			<repeatable>true</repeatable>
-			<label>Λεπτομέρειες μαθήματος</label>
+			<label>Σχετικά μαθήματα</label>
 			<input-type>textarea</input-type>
 			<hint>Λεπτομέρειες για το μάθημα το οποίο υποστηρίζει το παρόν εκπαιδευτικό υλικό. Η τιμή του πεδίου
 				περιλαμβάνει το όνομα του μαθήματος, το εξάμηνο διδασκαλίας, καθώς και το επίπεδο σπουδών (προπτυχιακό ή μεταπτυχιακό), στη μορφή 
@@ -696,10 +697,6 @@
 
    <value-pairs value-pairs-name="common_iso_languages" dc-term="language_iso">
 		<pair>
-			<displayed-value>Μη εφαρμόσιμο</displayed-value>
-			<stored-value></stored-value>
-		</pair>
-		<pair>
 			<displayed-value>Ελληνικά</displayed-value>
 			<stored-value>ell</stored-value>
 		</pair>
@@ -718,6 +715,10 @@
 		<pair>
 			<displayed-value>Άλλη</displayed-value>
 			<stored-value>other</stored-value>
+		</pair>
+		<pair>
+			<displayed-value>Μη εφαρμόσιμο</displayed-value>
+			<stored-value></stored-value>
 		</pair>
    </value-pairs>
    
