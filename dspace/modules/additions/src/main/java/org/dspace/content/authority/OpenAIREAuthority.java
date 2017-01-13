@@ -74,6 +74,15 @@ import org.w3c.dom.NodeList;
  */
 public class OpenAIREAuthority implements ChoiceAuthority
 {
+	
+    private static Logger log = Logger.getLogger(OpenAIREAuthority.class);
+    private static final String FileProperty = "openaire.projects.filename";
+    private static final String MinimumChars = "openaire.projects.suggest.minchar";
+    private static final String MaxSuggests = "openaire.projects.suggest.max";
+	private static final int MaxSuggestionLength = 66;
+    
+    private static List<Pair<String, String>> pairs = null;
+    
 	static {
 		try {
 			load();
@@ -82,15 +91,6 @@ public class OpenAIREAuthority implements ChoiceAuthority
 			OpenAIREAuthority.pairs = new ArrayList<Pair<String,String>>();
 		}
 	}
-	
-    private static Logger log = Logger.getLogger(OpenAIREAuthority.class);
-    private static final String FileProperty = "openaire.projects.filename";
-    private static final String MinimumChars = "openaire.projects.suggest.minchar";
-    private static final String MaxSuggests = "openaire.projects.suggest.max";
-	private static final int MaxSuggestionLength = 66;
-    
-    
-    private static List<Pair<String, String>> pairs = null;
     
     /**
      * Loads the data, parsing the file defined at the 'openaire.projects.filename' dspace
