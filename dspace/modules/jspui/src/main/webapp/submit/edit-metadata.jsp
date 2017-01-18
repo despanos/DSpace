@@ -213,6 +213,12 @@
                     {
                         if (dcv.getValue().equals(cs.values[i].value))
                             selected = true;
+                        //modified by dspanos
+                        //special case for embargo controlled vocabulary value, where user may return to previous page. In that case, heal.access will contain a date.
+                        if (cs.values[i].value.equals("embargo") && fieldName.equals("heal_access") && 
+                       		 (dcv.getValue().matches("\\d{4}-\\d{2}-\\d{2}") || dcv.getValue().matches("\\d{4}-\\d{2}") || dcv.getValue().matches("\\d{4}")))
+                       	 		selected = true;
+                        //end dspanos
                     }
                     sb.append("<option value=\"")
                       .append(cs.values[i].value.replaceAll("\"", "\\\""))

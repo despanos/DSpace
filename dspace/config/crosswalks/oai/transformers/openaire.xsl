@@ -24,6 +24,7 @@
 		</xsl:copy>
 	</xsl:template>
  
+ 	<!-- modified by dspanos -->
  	<!-- Formatting dc.date.issued -->
 	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='issued']/doc:element/doc:field/text()">
 		<xsl:call-template name="formatdate">
@@ -31,9 +32,23 @@
 		</xsl:call-template>
 	</xsl:template>
 	
+	<!-- Use dc.date.available for embargo end date -->
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name='available']/doc:element/doc:field/text()">
+		
+		<xsl:call-template name="addPrefix">
+			<xsl:with-param name="value">
+				<xsl:call-template name="formatdate">
+					<xsl:with-param name="datestr" select="." />
+				</xsl:call-template>
+			</xsl:with-param>
+			<xsl:with-param name="prefix" select="'info:eu-repo/date/embargoEnd/'"></xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+	
 	<!-- Removing other dc.date.* -->
-	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued']" />
-
+	<xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='date']/doc:element[@name!='issued' and @name!='available']" />
+	<!-- end dspanos -->
+	
 	<!-- Prefixing dc.type -->
 	<!--  modified by dspanos -->
 	<!--  <xsl:template match="/doc:metadata/doc:element[@name='dc']/doc:element[@name='type']/doc:element/doc:field/text()">
