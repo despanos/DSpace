@@ -187,7 +187,7 @@
 				2) allowing access to users that use an IP address within the
 				institutional IP range,
 				3) allowing access only to logged-in DSpace users, and
-				4) setting a 6 months embargo period, during which the full text of the
+				4) setting an embargo period, during which the full text of the
 				item is not available.
 				When the embargo period ends, the public access scheme is assigned to the
 				item.
@@ -743,7 +743,7 @@
 			<stored-value>account</stored-value>
 		</pair>
 		<pair>
-			<displayed-value>Embargo (6 months)</displayed-value>
+			<displayed-value>Embargo</displayed-value>
 			<stored-value>embargo</stored-value>
 		</pair>
 		<pair>
